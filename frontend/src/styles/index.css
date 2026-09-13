@@ -1,0 +1,376 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  /* Clean sky-blue-and-white palette (SkyVoyage-style): a single confident blue
+     accent carries every CTA, active tab, and highlight instead of splitting
+     attention across gold/teal/coral. Navy is kept only for the hero banner and
+     headline text, never as a competing accent. */
+  --color-navy: #0f2b63;
+  --color-navy-light: #1d4ed8;
+  --color-midnight: #081733;
+  --color-accent: #2563eb;
+  --color-accent-dark: #1d4ed8;
+  --color-accent-soft: #eaf1ff;
+  --color-teal: #0ea5e9;
+  --color-teal-dark: #0284c7;
+  --color-accent-light: #60a5fa;
+  --color-bg: #f5f8fc;
+  --color-card: #ffffff;
+  --color-text: #16213d;
+  --color-text-muted: #64748b;
+  --color-border: #e3e8f2;
+  --color-success-bg: #e9f7ef;
+  --color-success-text: #187a4c;
+  /* --color-navy doubles as a BACKGROUND (navbar-accent buttons, chat bubbles, avatar
+     gradients, hero banner) as well as heading text. Those two jobs need different
+     values in dark mode -- a background must stay deep navy, but heading text needs
+     to turn light to read on a dark page -- so heading text gets its own variable
+     instead of every component re-defining --color-navy itself. */
+  --color-heading: var(--color-navy);
+  --font-heading: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 2px 10px rgba(15, 43, 99, 0.07);
+  --shadow-md: 0 12px 32px rgba(15, 43, 99, 0.14);
+}
+
+/* Dark theme -- toggled by adding data-theme="dark" on <html> (see AuthContext).
+   Same variable names, calmer low-contrast values so nothing needs per-component
+   dark-mode CSS; every element that already uses a variable just follows along.
+   Navy/midnight are kept dark (they're used as backgrounds) -- only --color-heading
+   switches to a pale blue so titles stay readable on the dark page background. */
+[data-theme="dark"] {
+  --color-navy: #16305e;
+  --color-navy-light: #294f8f;
+  --color-midnight: #050b18;
+  --color-heading: #b9cdf5;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #60a5fa;
+  --color-accent-soft: #1e293b;
+  --color-teal: #38bdf8;
+  --color-teal-dark: #7dd3fc;
+  --color-accent-light: #93c5fd;
+  --color-bg: #0e1524;
+  --color-card: #171f33;
+  --color-text: #e5eaf5;
+  --color-text-muted: #94a3b8;
+  --color-border: #2a3650;
+  --color-success-bg: #10301f;
+  --color-success-text: #4ade80;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 22px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-dark);
+}
+
+.btn-accent {
+  background: var(--color-navy);
+  color: #fff;
+}
+
+.btn-accent:hover {
+  background: var(--color-navy-light);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+.card {
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-card);
+  color: var(--color-text);
+  transition: background 0.2s ease, border-color 0.15s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.page-wrap {
+  min-height: calc(100vh - 140px);
+  padding: 40px 0 60px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 6px;
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+}
+
+.modify-search-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.modify-search-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* --- Flight results: sidebar filters + main list (matches the reference layout) --- */
+
+.results-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.filter-sidebar {
+  width: 240px;
+  min-width: 240px;
+  padding: 20px;
+  position: sticky;
+  top: 84px;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 10px;
+}
+
+.filter-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--color-text);
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.filter-checkbox-row input[type="checkbox"] {
+  accent-color: var(--color-accent);
+  width: 15px;
+  height: 15px;
+}
+
+.price-slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  margin: 6px 0 8px;
+}
+
+.price-slider-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.results-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.results-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.sort-select {
+  width: 190px;
+}
+
+.sort-order-btn {
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   Responsive breakpoints. Three tiers: tablets/small laptops (860px, already
+   used by the results layout above), large phones (640px), and small phones
+   (420px) -- covers everything from an iPad down to an iPhone SE / small
+   Android without any single layout overflowing or getting squished.
+   --------------------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .results-layout {
+    flex-direction: column;
+  }
+  .filter-sidebar {
+    width: 100%;
+    min-width: 0;
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+  .page-wrap {
+    padding: 24px 0 40px;
+  }
+  .section-title {
+    font-size: 1.35rem;
+  }
+  .modify-search-bar {
+    padding: 14px;
+  }
+  .modify-search-field {
+    min-width: 0;
+    flex-basis: 100%;
+  }
+  .modify-search-bar .btn {
+    width: 100%;
+  }
+  .results-toolbar {
+    justify-content: stretch;
+  }
+  .sort-select {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .section-title {
+    font-size: 1.2rem;
+  }
+  .section-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  .filter-sidebar {
+    padding: 16px;
+  }
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  .booking-review-card {
+    padding: 18px !important;
+  }
+  .booking-passenger-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .auth-wrap {
+    padding: 30px 12px;
+  }
+  .auth-card {
+    padding: 22px;
+  }
+}
+
+/* Alert boxes (login/signup errors, mic-active state) keep their own colors for
+   meaning (red = error), just toned down so they don't glare on a dark background. */
+[data-theme="dark"] .auth-error {
+  background: #3a1616;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .ai-icon-btn.mic-active {
+  background: #3a1616;
+  color: #f87171;
+}
